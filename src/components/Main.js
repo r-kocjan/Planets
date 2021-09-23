@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import data from "../data.json";
 const Main = ({ planet }) => {
@@ -11,7 +11,6 @@ const Main = ({ planet }) => {
   const sourceRef = useRef(null);
 
   const mediaQuery = window.matchMedia("(max-width:768px)");
-
   const buttons = [buttonOverview, buttonInternal, buttonGeology];
 
   const changeImage = function (e) {
@@ -21,13 +20,13 @@ const Main = ({ planet }) => {
 
     e.target.closest(".button").classList.add("active");
 
-    if (e.target.firstChild.textContent === "01") {
+    if (e.target.closest(".button").id === "overview") {
       imageRef.current.src = data[planet].images.planet;
       contentRef.current.textContent = data[planet].overview.content;
       geologyImage.current.style.opacity = "0";
       geologyImage.current.style.transform = "scale(0)";
       sourceRef.current.href = data[planet].overview.source;
-    } else if (e.target.firstChild.textContent === "02") {
+    } else if (e.target.closest(".button").id === "internal") {
       imageRef.current.src = data[planet].images.internal;
       contentRef.current.textContent = data[planet].structure.content;
       geologyImage.current.style.opacity = "0";
@@ -101,6 +100,7 @@ const Main = ({ planet }) => {
             <button
               className="button active"
               type="button"
+              id="overview"
               ref={buttonOverview}
               onClick={changeImage}
             >
@@ -110,6 +110,7 @@ const Main = ({ planet }) => {
             <button
               className="button"
               type="button"
+              id="internal"
               ref={buttonInternal}
               onClick={changeImage}
             >
@@ -119,6 +120,7 @@ const Main = ({ planet }) => {
             <button
               className="button"
               type="button"
+              id="geology"
               ref={buttonGeology}
               onClick={changeImage}
             >
@@ -151,6 +153,9 @@ const Main = ({ planet }) => {
 };
 
 const Container = styled.main`
+  @media (max-width: 768px) {
+    padding-bottom: 10rem;
+  }
   .planet {
     display: flex;
     width: 1128px;
@@ -160,7 +165,7 @@ const Container = styled.main`
       margin-top: 10rem;
     }
     @media (max-width: 1200px) {
-      width: 95%;
+      width: 90%;
       flex-direction: column;
     }
     @media (max-width: 768px) {
@@ -181,6 +186,7 @@ const Container = styled.main`
       }
       @media (max-width: 768px) {
         margin-top: 15rem;
+        margin-bottom: 8rem;
       }
       img {
         width: 25rem;
@@ -262,6 +268,8 @@ const Container = styled.main`
       width: 95%;
       transform: translateX(-50%);
       justify-content: space-between;
+      margin-top: 1.5rem;
+      border-bottom: 1px solid #83839155;
     }
   }
   .button {
@@ -288,7 +296,10 @@ const Container = styled.main`
       font-weight: lighter;
       border: 0;
       text-align: center;
+      margin: 0;
+      border-bottom: 4px solid transparent;
     }
+
     &::after {
       content: "";
       width: 5rem;
@@ -302,6 +313,9 @@ const Container = styled.main`
       transform: translate(-50%, -50%) scale(0);
       z-index: -1;
       transition: all 250ms;
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
     &:hover {
       &::after {
@@ -317,7 +331,13 @@ const Container = styled.main`
     }
   }
   .active {
-    background-color: var(--current-color);
+    @media (min-width: 768px) {
+      background-color: var(--current-color);
+    }
+
+    @media (max-width: 768px) {
+      border-bottom: 4px solid var(--current-color);
+    }
   }
   .planet-details {
     display: flex;
@@ -328,7 +348,10 @@ const Container = styled.main`
     gap: 2rem;
 
     @media (max-width: 1200px) {
-      width: 95%;
+      width: 90%;
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
     }
     .detail {
       padding: 0 2rem;
@@ -336,6 +359,12 @@ const Container = styled.main`
       width: 100%;
       border: 1px solid #83839155;
       text-transform: uppercase;
+      @media (max-width: 768px) {
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       span {
         padding-top: 2.5rem;
         margin-bottom: 1rem;
@@ -343,12 +372,20 @@ const Container = styled.main`
         @media (max-width: 1200px) {
           font-size: 1.2rem;
         }
+        @media (max-width: 768px) {
+          padding: 0;
+          margin: 0;
+        }
       }
       .heading-2 {
         font-size: 3rem;
         font-family: var(--antonio);
         @media (max-width: 1200px) {
           font-size: 2.5rem;
+        }
+        @media (max-width: 768px) {
+          font-size: 2.2rem;
+          line-height: 1.2;
         }
       }
     }

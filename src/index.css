@@ -47,6 +47,11 @@ body {
 ul {
   list-style-type: none;
 }
+.show-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  left: 0 !important;
+}
 
 @media (max-width: 768px) {
   html {
