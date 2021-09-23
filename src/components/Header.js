@@ -1,14 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import data from "../data.json";
-const Header = () => {
+const Header = ({ changePlanet, planet }) => {
   return (
     <Container>
       <span className="logo">THE PLANETS</span>
       <Menu>
         {data.map(({ name }, id) => {
           return (
-            <li className={`menu-item ${name}`} key={id}>
+            <li
+              className={`menu-item`}
+              style={
+                id === planet
+                  ? { borderTop: `4px solid ${data[planet].color}` }
+                  : { borderTop: `4px solid transparent` }
+              }
+              key={id}
+              onClick={() => changePlanet(id)}
+            >
               <a className="menu-link"> {name}</a>
             </li>
           );
@@ -55,12 +64,10 @@ const Menu = styled.ul`
     display: flex;
     align-items: center;
     border-top: 4px solid transparent;
+    transition: all 250ms;
   }
   .menu-item:hover a {
     color: var(--white);
-  }
-  .Mercury {
-    border-top: 4px solid var(--water);
   }
 `;
 

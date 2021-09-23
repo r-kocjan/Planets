@@ -1,37 +1,124 @@
-import React from "react";
+import userEvent from "@testing-library/user-event";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import data from "../data.json";
-const Main = () => {
+const Main = ({ planet }) => {
+  const buttonOverview = useRef(null);
+  const buttonInternal = useRef(null);
+  const buttonGeology = useRef(null);
+  const imageRef = useRef(null);
+  const geologyImage = useRef(null);
+  const contentRef = useRef(null);
+  const sourceRef = useRef(null);
+
+  const buttons = [buttonOverview, buttonInternal, buttonGeology];
+
+  const changeImage = function (e) {
+    buttons.forEach((button) => {
+      button.current.classList.remove("active");
+    });
+
+    e.target.closest(".button").classList.add("active");
+
+    if (e.target.firstChild.textContent === "01") {
+      imageRef.current.src = data[planet].images.planet;
+      contentRef.current.textContent = data[planet].overview.content;
+      geologyImage.current.style.opacity = "0";
+      sourceRef.current.href = data[planet].overview.source;
+    } else if (e.target.firstChild.textContent === "02") {
+      imageRef.current.src = data[planet].images.internal;
+      contentRef.current.textContent = data[planet].structure.content;
+      geologyImage.current.style.opacity = "0";
+      sourceRef.current.href = data[planet].structure.source;
+    } else {
+      imageRef.current.src = data[planet].images.planet;
+      contentRef.current.textContent = data[planet].geology.content;
+      geologyImage.current.style.opacity = "1";
+      sourceRef.current.href = data[planet].overview.source;
+      sourceRef.current.href = data[planet].geology.source;
+    }
+  };
+
   return (
     <Container>
       <div className="planet">
         <div className="images">
-          <img src={data[0].images.planet} alt={data[0].name} />
+          <img
+            src={data[planet].images.planet}
+            alt={data[planet].name}
+            ref={imageRef}
+          />
+          <img
+            className="geology"
+            src={data[planet].images.geology}
+            alt={data[planet].name}
+            ref={geologyImage}
+          />
         </div>
         <div className="about">
-          <h1 className="heading-1">{data[0].name}</h1>
-          <p className="para">{data[0].overview.content}</p>
+          <h1 className="heading-1">{data[planet].name}</h1>
+          <p className="para" ref={contentRef}>
+            {data[planet].overview.content}
+          </p>
           <span className="source">
             Source:
-            <a href={data[0].overview.source} target="_blank" rel="noreferrer">
+            <a
+              href={data[planet].overview.source}
+              target="_blank"
+              rel="noreferrer"
+              ref={sourceRef}
+            >
               Wikipedia
             </a>
             <img src="/assets/icon-source.svg" alt="source" />
           </span>
           <div className="buttons">
-            <button className="button" type="button">
+            <button
+              className="button active"
+              type="button"
+              ref={buttonOverview}
+              onClick={changeImage}
+            >
               <span>01</span>
               Overview
             </button>
-            <button className="button" type="button">
+            <button
+              className="button"
+              type="button"
+              ref={buttonInternal}
+              onClick={changeImage}
+            >
               <span>02</span>
               Internal Structures
             </button>
-            <button className="button" type="button">
+            <button
+              className="button"
+              type="button"
+              ref={buttonGeology}
+              onClick={changeImage}
+            >
               <span>03</span>
               Surface Geology
             </button>
           </div>
+        </div>
+      </div>
+      <div className="planet-details">
+        <div className="detail">
+          <span>Rotation time</span>
+          <h2 className="heading-2">{data[planet].rotation}</h2>
+        </div>
+        <div className="detail">
+          <span>Revolution time</span>
+          <h2 className="heading-2">{data[planet].revolution}</h2>
+        </div>
+        <div className="detail">
+          <span>Radius</span>
+          <h2 className="heading-2">{data[planet].radius}</h2>
+        </div>
+        <div className="detail">
+          <span>Average temp.</span>
+          <h2 className="heading-2">{data[planet].temperature}</h2>
         </div>
       </div>
     </Container>
@@ -50,9 +137,17 @@ const Container = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: -6rem;
+      position: relative;
 
       img {
         width: 25rem;
+      }
+      .geology {
+        position: absolute;
+        width: 12rem;
+        bottom: 4rem;
+        opacity: 0;
       }
     }
     .about {
@@ -71,6 +166,7 @@ const Container = styled.main`
   }
   .para {
     margin-bottom: 3rem;
+    height: 8rem;
   }
   .source {
     color: var(--light-gray);
@@ -104,6 +200,7 @@ const Container = styled.main`
     position: relative;
     overflow: hidden;
     cursor: pointer;
+
     &::after {
       content: "";
       width: 5rem;
@@ -111,7 +208,7 @@ const Container = styled.main`
       border-radius: 50%;
       display: block;
       position: absolute;
-      background-color: var(--water);
+      background-color: var(--current-color);
       left: 0%;
       top: 50%;
       transform: translate(-50%, -50%) scale(0);
@@ -126,6 +223,33 @@ const Container = styled.main`
     span {
       margin-right: 2rem;
       font-weight: lighter;
+    }
+  }
+  .active {
+    background-color: var(--current-color);
+  }
+  .planet-details {
+    display: flex;
+    width: 1128px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    justify-content: space-between;
+    gap: 2rem;
+    .detail {
+      padding: 0 2rem;
+      padding-bottom: 2.5rem;
+      width: 100%;
+      border: 1px solid #83839155;
+      text-transform: uppercase;
+      span {
+        padding-top: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+      .heading-2 {
+        font-size: 3rem;
+        font-family: var(--antonio);
+      }
     }
   }
 `;
