@@ -9,7 +9,7 @@ const Header = ({ changePlanet, planet }) => {
         {data.map(({ name }, id) => {
           return (
             <li
-              className={`menu-item`}
+              className={`menu-item ${name}`}
               style={
                 id === planet
                   ? { borderTop: `4px solid ${data[planet].color}` }
@@ -75,9 +75,34 @@ const Menu = styled.ul`
     align-items: center;
     border-top: 4px solid transparent;
     transition: all 250ms;
+
     @media (max-width: 1200px) {
       height: 30%;
     }
+  }
+  .Mercury:hover {
+    border-bottom: 4px solid var(--water);
+  }
+  .Venus:hover {
+    border-bottom: 4px solid var(--yellow);
+  }
+  .Earth:hover {
+    border-bottom: 4px solid var(--purple);
+  }
+  .Mars:hover {
+    border-bottom: 4px solid var(--dark-orange);
+  }
+  .Jupiter:hover {
+    border-bottom: 4px solid var(--light-orange);
+  }
+  .Saturn:hover {
+    border-bottom: 4px solid var(--yellow);
+  }
+  .Uranus:hover {
+    border-bottom: 4px solid var(--cyan);
+  }
+  .Neptune:hover {
+    border-bottom: 4px solid var(--blue);
   }
   .menu-item:hover a {
     color: var(--white);

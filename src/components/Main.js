@@ -1,5 +1,4 @@
-import userEvent from "@testing-library/user-event";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import data from "../data.json";
 const Main = ({ planet }) => {
@@ -41,6 +40,18 @@ const Main = ({ planet }) => {
       sourceRef.current.href = data[planet].geology.source;
     }
   };
+
+  useEffect(() => {
+    imageRef.current.src = data[planet].images.planet;
+    contentRef.current.textContent = data[planet].overview.content;
+    geologyImage.current.style.opacity = "0";
+    geologyImage.current.style.transform = "scale(0)";
+    sourceRef.current.href = data[planet].overview.source;
+    buttons.forEach((button) => {
+      button.current.classList.remove("active");
+    });
+    buttonOverview.current.classList.add("active");
+  }, [planet]);
 
   return (
     <Container>
@@ -237,7 +248,7 @@ const Container = styled.main`
     position: relative;
     overflow: hidden;
     cursor: pointer;
-
+    transition: all 250ms;
     &::after {
       content: "";
       width: 5rem;

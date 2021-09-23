@@ -40,8 +40,23 @@ body {
   background-color: var(--dark-blue);
   background-size: contain;
   /* background-repeat: no-repeat; */
+  background-position: 0 0;
   color: var(--white);
+  animation: move 240s linear infinite;
 }
 ul {
   list-style-type: none;
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 300% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
 }

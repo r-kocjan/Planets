@@ -10,6 +10,7 @@ function App() {
   const changePlanet = (planet) => {
     setPlanet(planet);
     root.style.setProperty("--current-color", data[planet].color);
+    document.title = `The Planets | ${data[planet].name}`;
   };
 
   return (
