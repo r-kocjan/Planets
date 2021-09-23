@@ -9,6 +9,7 @@
   --dark-blue: #070724;
   --gray: #38384f;
   --light-gray: #838391;
+  --lighter-gray: #c3c3cc;
   --water: #419ebb;
   --yellow: #eda249;
   --purple: #6f2ed6;
@@ -32,4 +33,13 @@ body {
   box-sizing: border-box;
   font-size: 1.4rem;
   font-family: var(--spartan);
+  height: 100vh;
+  max-height: 100vh;
+  background-color: var(--dark-blue);
+  background-size: contain;
+  /* background-repeat: no-repeat; */
+  color: var(--white);
+}
+ul {
+  list-style-type: none;
 }
