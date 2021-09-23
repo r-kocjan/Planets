@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@500&family=Spartan:wght@400;700&display=swap");
+
+:root {
+  /* FONTS */
+  --spartan: "Spartan", sans-serif;
+  --antonio: "Antonio", sans-serif;
+  /* COLORS  */
+  --white: #fff;
+  --dark-blue: #070724;
+  --gray: #38384f;
+  --light-gray: #838391;
+  --water: #419ebb;
+  --yellow: #eda249;
+  --purple: #6f2ed6;
+  --dark-orange: #d14c32;
+  --light-orange: #cd5120;
+  --red: #d83a34;
+  --cyan: #1ec2a4;
+  --blue: #2d68f0;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  font-family: var(--spartan);
+}
