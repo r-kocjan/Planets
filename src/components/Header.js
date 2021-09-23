@@ -32,11 +32,16 @@ const Container = styled.nav`
   display: flex;
   align-items: center;
   position: relative;
+  @media (max-width: 1200px) {
+    padding-bottom: 5rem;
+  }
   .logo {
     padding: 3rem 3.5rem;
     font-size: 3rem;
     display: block;
-
+    @media (max-width: 1200px) {
+      margin: 0 auto;
+    }
     font-family: var(--antonio);
   }
 `;
@@ -48,8 +53,13 @@ const Menu = styled.ul`
   height: 100%;
   align-items: center;
 
+  @media (max-width: 1200px) {
+    right: 50%;
+    transform: translateX(50%);
+    margin-top: 12rem;
+  }
   .menu-item:not(:last-child) {
-    margin-right: 2.3rem;
+    margin-right: 2.5rem;
   }
   .menu-link {
     font-size: 1.4rem;
@@ -65,6 +75,9 @@ const Menu = styled.ul`
     align-items: center;
     border-top: 4px solid transparent;
     transition: all 250ms;
+    @media (max-width: 1200px) {
+      height: 30%;
+    }
   }
   .menu-item:hover a {
     color: var(--white);

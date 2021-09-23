@@ -24,16 +24,19 @@ const Main = ({ planet }) => {
       imageRef.current.src = data[planet].images.planet;
       contentRef.current.textContent = data[planet].overview.content;
       geologyImage.current.style.opacity = "0";
+      geologyImage.current.style.transform = "scale(0)";
       sourceRef.current.href = data[planet].overview.source;
     } else if (e.target.firstChild.textContent === "02") {
       imageRef.current.src = data[planet].images.internal;
       contentRef.current.textContent = data[planet].structure.content;
       geologyImage.current.style.opacity = "0";
+      geologyImage.current.style.transform = "scale(0)";
       sourceRef.current.href = data[planet].structure.source;
     } else {
       imageRef.current.src = data[planet].images.planet;
       contentRef.current.textContent = data[planet].geology.content;
       geologyImage.current.style.opacity = "1";
+      geologyImage.current.style.transform = "scale(1)";
       sourceRef.current.href = data[planet].overview.source;
       sourceRef.current.href = data[planet].geology.source;
     }
@@ -56,22 +59,24 @@ const Main = ({ planet }) => {
           />
         </div>
         <div className="about">
-          <h1 className="heading-1">{data[planet].name}</h1>
-          <p className="para" ref={contentRef}>
-            {data[planet].overview.content}
-          </p>
-          <span className="source">
-            Source:
-            <a
-              href={data[planet].overview.source}
-              target="_blank"
-              rel="noreferrer"
-              ref={sourceRef}
-            >
-              Wikipedia
-            </a>
-            <img src="/assets/icon-source.svg" alt="source" />
-          </span>
+          <div className="about-planet">
+            <h1 className="heading-1">{data[planet].name}</h1>
+            <p className="para" ref={contentRef}>
+              {data[planet].overview.content}
+            </p>
+            <span className="source">
+              Source:
+              <a
+                href={data[planet].overview.source}
+                target="_blank"
+                rel="noreferrer"
+                ref={sourceRef}
+              >
+                Wikipedia
+              </a>
+              <img src="/assets/icon-source.svg" alt="source" />
+            </span>
+          </div>
           <div className="buttons">
             <button
               className="button active"
@@ -130,7 +135,14 @@ const Container = styled.main`
     display: flex;
     width: 1128px;
     margin: 0 auto;
-
+    overflow: hidden;
+    @media (min-width: 1600px) {
+      margin-top: 10rem;
+    }
+    @media (max-width: 1200px) {
+      width: 95%;
+      flex-direction: column;
+    }
     .images {
       flex-basis: 60%;
 
@@ -140,6 +152,10 @@ const Container = styled.main`
       margin-top: -6rem;
       position: relative;
 
+      @media (max-width: 1200px) {
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+      }
       img {
         width: 25rem;
       }
@@ -148,11 +164,25 @@ const Container = styled.main`
         width: 12rem;
         bottom: 4rem;
         opacity: 0;
+        transform: scale(0);
+        transition: all 250ms;
+        @media (max-width: 1200px) {
+          bottom: -7rem;
+        }
       }
     }
     .about {
       margin-top: 3rem;
       flex-basis: 40%;
+      @media (max-width: 1200px) {
+        display: flex;
+        gap: 4rem;
+      }
+    }
+    .about-planet {
+      @media (max-width: 1200px) {
+        flex-basis: 50%;
+      }
     }
   }
 
@@ -167,6 +197,9 @@ const Container = styled.main`
   .para {
     margin-bottom: 3rem;
     height: 8rem;
+    @media (max-width: 1200px) {
+      height: 12rem;
+    }
   }
   .source {
     color: var(--light-gray);
@@ -184,6 +217,10 @@ const Container = styled.main`
   .buttons {
     display: flex;
     flex-direction: column;
+    @media (max-width: 1200px) {
+      flex-basis: 50%;
+      justify-content: center;
+    }
   }
   .button {
     margin-bottom: 1.5rem;
@@ -235,6 +272,10 @@ const Container = styled.main`
     margin-top: 2rem;
     justify-content: space-between;
     gap: 2rem;
+
+    @media (max-width: 1200px) {
+      width: 95%;
+    }
     .detail {
       padding: 0 2rem;
       padding-bottom: 2.5rem;
@@ -245,10 +286,16 @@ const Container = styled.main`
         padding-top: 2.5rem;
         margin-bottom: 1rem;
         display: block;
+        @media (max-width: 1200px) {
+          font-size: 1.2rem;
+        }
       }
       .heading-2 {
         font-size: 3rem;
         font-family: var(--antonio);
+        @media (max-width: 1200px) {
+          font-size: 2.5rem;
+        }
       }
     }
   }
