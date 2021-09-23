@@ -10,6 +10,8 @@ const Main = ({ planet }) => {
   const contentRef = useRef(null);
   const sourceRef = useRef(null);
 
+  const mediaQuery = window.matchMedia("(max-width:768px)");
+
   const buttons = [buttonOverview, buttonInternal, buttonGeology];
 
   const changeImage = function (e) {
@@ -52,6 +54,13 @@ const Main = ({ planet }) => {
     });
     buttonOverview.current.classList.add("active");
   }, [planet]);
+
+  useEffect(() => {
+    if (mediaQuery.matches) {
+      buttonInternal.current.textContent = "Structure";
+      buttonGeology.current.textContent = "Surface";
+    }
+  }, []);
 
   return (
     <Container>
@@ -154,6 +163,9 @@ const Container = styled.main`
       width: 95%;
       flex-direction: column;
     }
+    @media (max-width: 768px) {
+      position: relative;
+    }
     .images {
       flex-basis: 60%;
 
@@ -166,6 +178,9 @@ const Container = styled.main`
       @media (max-width: 1200px) {
         margin-top: 5rem;
         margin-bottom: 5rem;
+      }
+      @media (max-width: 768px) {
+        margin-top: 15rem;
       }
       img {
         width: 25rem;
@@ -188,6 +203,10 @@ const Container = styled.main`
       @media (max-width: 1200px) {
         display: flex;
         gap: 4rem;
+      }
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
       }
     }
     .about-planet {
@@ -217,6 +236,9 @@ const Container = styled.main`
     display: flex;
     align-items: center;
     margin-bottom: 3rem;
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
     a {
       margin-left: 1rem;
       color: #fff;
@@ -232,10 +254,19 @@ const Container = styled.main`
       flex-basis: 50%;
       justify-content: center;
     }
+    @media (max-width: 768px) {
+      position: absolute;
+      flex-direction: row;
+      top: 0;
+      left: 50%;
+      width: 95%;
+      transform: translateX(-50%);
+      justify-content: space-between;
+    }
   }
   .button {
     margin-bottom: 1.5rem;
-    padding: 1.3rem;
+    padding: 1.5rem;
     padding-bottom: 1rem;
     padding-left: 3rem;
     border: 1px solid #83839155;
@@ -248,7 +279,16 @@ const Container = styled.main`
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
     transition: all 250ms;
+    @media (max-width: 768px) {
+      padding: 0;
+      padding: 1.5rem 1rem;
+      font-size: 1.4rem;
+      font-weight: lighter;
+      border: 0;
+      text-align: center;
+    }
     &::after {
       content: "";
       width: 5rem;
@@ -271,6 +311,9 @@ const Container = styled.main`
     span {
       margin-right: 2rem;
       font-weight: lighter;
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
   .active {

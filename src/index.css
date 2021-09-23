@@ -48,6 +48,12 @@ ul {
   list-style-type: none;
 }
 
+@media (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
+}
+
 @keyframes move {
   0% {
     background-position: 0 0;
