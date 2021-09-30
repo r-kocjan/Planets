@@ -5,7 +5,7 @@ This is a solution to the [Planets fact site challenge on Frontend Mentor](https
 ## Table of contents
 
 - [Overview](#overview)
-  - [Screenshot]
+  - [Screenshot] (#screenshot)
   - [Links] (#links)
 - [My process](#my-process)
   - [Built with](#built-with)
