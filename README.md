@@ -30,7 +30,7 @@ This is a solution to the [Planets fact site challenge on Frontend Mentor](https
 ### Links
 
 
-- Live Site URL: http://remigiusz.net/projekty/planets
+- Live Site URL: https://remigiusz.net/projekty/planets
 
 ## My process
 
